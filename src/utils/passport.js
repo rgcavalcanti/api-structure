@@ -1,3 +1,4 @@
+import config from '../config/index'
 import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import { Strategy as LocalStrategy } from 'passport-local'
@@ -7,7 +8,7 @@ import User from '../models/user'
 // JSON Web Token Strategy
 passport.use(new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: process.env.JWT_SECRET
+  secretOrKey: config.JWT_SECRET
 }, async (payload, done) => {
   try {
     const user = await User.findById(payload.sub)
